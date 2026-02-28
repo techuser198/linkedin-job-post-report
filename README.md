@@ -83,7 +83,26 @@ Enter LinkedIn credentials and search inputs in the form, then generate/download
 - `job_monitor/storage/`: CSV/HTML report writing
 - `templates/index.html`: Web form template
 
+
+## Screenshots
+
+### Front Page
+![Front Page](front-page.png)
+
+### Report View
+![Report View](report-view.png)
+
+
 ## Notes
 
 - This is a basic automation tool that logs in to LinkedIn, searches by role/location, extracts matching content, and generates CSV/HTML reports for easy review.
 - It is useful compared to manually using the LinkedIn app because it reduces repeated search effort, produces exportable structured data, and makes monitoring opportunities consistent across runs.
+
+
+## common errors
+
+- Failed to generate report: Page.wait_for_selector: Timeout 20000ms exceeded. Call log: - waiting for locator("input[placeholder='Search']") to be visible - waiting for" https://www.linkedin.com/checkpoint/lg/login-challenge-submit?lastCv=AgEPvsd1r02SkAAAAZyj5ouPsJEK5uYpqPJz3tBI48ZGmQD6fy8vuqzs3J35Yrc9BD8tP9Vr66U&_d=d&session_redirect=&challengeId=AQHgmAI9eN832wAAAZy…" navigation to finish...
+
+solution: check your linkedin app for the approval of login
+
+
