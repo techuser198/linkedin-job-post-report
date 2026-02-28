@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Monitor</title>
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #0a66c2;
+      --danger: #b91c1c;
+      --success: #166534;
+      --border: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(120deg, #f8fafc, var(--bg));
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 6px 0;
+      font-size: 28px;
+    }
+
+    p {
+      margin: 0 0 20px 0;
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 6px;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 14px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .alert {
+      margin-top: 16px;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--danger);
+    }
+
+    .success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--success);
+    }
+
+    .downloads {
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>LinkedIn Job Monitor</h1>
+    <p>Enter credentials and search criteria to generate downloadable reports.</p>
+
+    <form method="post" action="/generate">
+      <label>
+        LinkedIn Email
+        <input type="email" name="linkedin_email" required placeholder="name@example.com">
+      </label>
+
+      <label>
+        LinkedIn Password
+        <input type="password" name="linkedin_password" required placeholder="Your LinkedIn password">
+      </label>
+
+      <label>
+        Role
+        <input type="text" name="role" required placeholder="python developer" value="{{ role or '' }}">
+      </label>
+
+      <label>
+        Location
+        <input type="text" name="location" placeholder="Dubai" value="{{ location or '' }}">
+      </label>
+
+      <label>
+        Days
+        <input type="number" name="days" min="0" value="{{ days or 2 }}">
+      </label>
+
+      <button type="submit">Generate Reports</button>
+    </form>
+
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert success">
+      Reports generated successfully.
+      <div class="downloads">
+        <a href="/download?file={{ csv_relative }}">Download CSV</a>
+        <a href="/download?file={{ html_relative }}">Download HTML</a>
+      </div>
+    </div>
+    {% endif %}
+  </main>
+</body>
+</html>
+
